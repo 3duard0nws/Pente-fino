@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barbearia Pente Fino</title>
+  <meta name="description" content="Barbearia Pente Fino - cortes, barba e cuidado masculino com hora marcada.">
+  <style>
+    :root {
+      --bg: #0f0f10;
+      --bg-2: #17171a;
+      --text: #f3f1ec;
+      --muted: #a8a49c;
+      --gold: #c9a227;
+      --gold-2: #e6c35c;
+      --radius: 14px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* Header */
+    header {
+      position: fixed; inset: 0 0 auto 0;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 5%;
+      background: rgba(15, 15, 16, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 10;
+      border-bottom: 1px solid rgba(201, 162, 39, 0.15);
+    }
+    .logo { font-weight: 800; letter-spacing: 1px; color: var(--gold); font-size: 1.1rem; }
+    nav { display: flex; gap: 1.5rem; }
+    nav a { color: var(--muted); font-size: 0.95rem; transition: color .2s; }
+    nav a:hover { color: var(--gold-2); }
+    .menu-btn { display: none; background: none; border: 0; color: var(--text); font-size: 1.6rem; cursor: pointer; }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
+      padding: 8rem 5% 4rem;
+      background:
+        linear-gradient(rgba(15,15,16,.75), rgba(15,15,16,.95)),
+        repeating-linear-gradient(90deg, rgba(201,162,39,.04) 0 2px, transparent 2px 60px);
+    }
+    .hero small {
+      color: var(--gold); letter-spacing: 4px; text-transform: uppercase; font-size: .8rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.8rem, 8vw, 5.5rem);
+      line-height: 1.05;
+      margin: .5rem 0 1rem;
+    }
+    .hero h1 span { color: var(--gold); }
+    .hero p { color: var(--muted); max-width: 520px; font-size: 1.1rem; margin-bottom: 2rem; }
+
+    .btn {
+      display: inline-block;
+      padding: .9rem 1.8rem;
+      border-radius: 999px;
+      font-weight: 700;
+      transition: transform .2s, background .2s;
+    }
+    .btn-gold { background: var(--gold); color: #111; }
+    .btn-gold:hover { background: var(--gold-2); transform: translateY(-2px); }
+    .btn-outline { border: 1px solid var(--gold); color: var(--gold); margin-left: .75rem; }
+    .btn-outline:hover { background: rgba(201,162,39,.1); }
+
+    /* Sections */
+    section { padding: 5rem 5%; }
+    .section-title { text-align: center; margin-bottom: 3rem; }
+    .section-title small { color: var(--gold); letter-spacing: 3px; text-transform: uppercase; font-size: .8rem; }
+    .section-title h2 { font-size: 2.2rem; margin-top: .4rem; }
+
+    /* Servicos */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .card {
+      background: var(--bg-2);
+      border: 1px solid rgba(201,162,39,.15);
+      border-radius: var(--radius);
+      padding: 2rem 1.5rem;
+      transition: transform .2s, border-color .2s;
+    }
+    .card:hover { transform: translateY(-4px); border-color: var(--gold); }
+    .card h3 { font-size: 1.2rem; margin-bottom: .5rem; }
+    .card p { color: var(--muted); font-size: .95rem; margin-bottom: 1rem; }
+    .price { color: var(--gold-2); font-weight: 700; font-size: 1.2rem; }
+
+    /* Sobre */
+    .about {
+      background: var(--bg-2);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 3rem;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .about p { color: var(--muted); margin-bottom: 1rem; }
+    .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .stat {
+      border-left: 3px solid var(--gold);
+      padding-left: 1rem;
+    }
+    .stat strong { display: block; font-size: 2rem; color: var(--gold-2); }
+    .stat span { color: var(--muted); font-size: .9rem; }
+
+    /* Horarios e contato */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .info-card {
+      background: var(--bg-2);
+      border-radius: var(--radius);
+      padding: 2rem;
+      border: 1px solid rgba(201,162,39,.15);
+    }
+    .info-card h3 { color: var(--gold); margin-bottom: 1rem; }
+    .info-card ul { list-style: none; color: var(--muted); }
+    .info-card li { display: flex; justify-content: space-between; padding: .4rem 0; border-bottom: 1px dashed rgba(255,255,255,.08); }
+    .info-card p { color: var(--muted); margin-bottom: .6rem; }
+
+    .cta {
+      text-align: center;
+      background: linear-gradient(135deg, #1a1507, #0f0f10);
+      border-top: 1px solid rgba(201,162,39,.2);
+      border-bottom: 1px solid rgba(201,162,39,.2);
+    }
+    .cta h2 { font-size: 2.2rem; margin-bottom: 1rem; }
+    .cta p { color: var(--muted); margin-bottom: 2rem; }
+
+    footer {
+      text-align: center;
+      padding: 2rem 5%;
+      color: var(--muted);
+      font-size: .85rem;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    footer strong { color: var(--gold); }
+
+    /* WhatsApp flutuante */
+    .whatsapp-float {
+      position: fixed; right: 20px; bottom: 20px;
+      background: #25d366; color: #fff;
+      width: 56px; height: 56px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; box-shadow: 0 6px 20px rgba(0,0,0,.4);
+      z-index: 20;
+    }
+
+    /* Responsivo */
+    @media (max-width: 760px) {
+      .menu-btn { display: block; }
+      nav {
+        display: none;
+        position: absolute; top: 100%; left: 0; right: 0;
+        flex-direction: column; gap: 0;
+        background: var(--bg);
+        border-bottom: 1px solid rgba(201,162,39,.15);
+      }
+      nav.open { display: flex; }
+      nav a { padding: 1rem 5%; border-top: 1px solid rgba(255,255,255,.05); }
+      .btn-outline { margin: .75rem 0 0; display: inline-block; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">PENTE FINO</div>
+    <nav id="menu">
+      <a href="#servicos">Serviços</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#horarios">Horários</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-label="Abrir menu">☰</button>
+  </header>
+
+  <section class="hero" id="inicio">
+    <small>Barbearia</small>
+    <h1>Pente <span>Fino</span></h1>
+    <p>Cortes precisos, barba alinhada e um ambiente pensado para você sair com a melhor versão do seu estilo.</p>
+    <div>
+      <a href="#contato" class="btn btn-gold">Agendar horário</a>
+      <a href="#servicos" class="btn btn-outline">Ver serviços</a>
+    </div>
+  </section>
+
+  <section id="servicos">
+    <div class="section-title">
+      <small>O que fazemos</small>
+      <h2>Nossos Serviços</h2>
+    </div>
+    <div class="services-grid">
+      <div class="card">
+        <h3>Corte Masculino</h3>
+        <p>Corte com tesoura ou máquina, finalização com pomada e acabamento no pescoço.</p>
+        <span class="price">R$ 40</span>
+      </div>
+      <div class="card">
+        <h3>Barba</h3>
+        <p>Modelagem, alinhamento dos contornos e hidratação com toalha quente.</p>
+        <span class="price">R$ 30</span>
+      </div>
+      <div class="card">
+        <h3>Corte + Barba</h3>
+        <p>O combo completo para sair renovado. O pacote mais pedido da casa.</p>
+        <span class="price">R$ 60</span>
+      </div>
+      <div class="card">
+        <h3>Pezinho / Acabamento</h3>
+        <p>Alinhamento rápido de contornos para manter o visual em dia entre um corte e outro.</p>
+        <span class="price">R$ 15</span>
+      </div>
+      <div class="card">
+        <h3>Sobrancelha</h3>
+        <p>Design de sobrancelha masculina com acabamento natural.</p>
+        <span class="price">R$ 10</span>
+      </div>
+      <div class="card">
+        <h3>Cuidados Especiais</h3>
+        <p>Hidratação capilar, limpeza de pele e tratamentos para barba e cabelo.</p>
+        <span class="price">Sob consulta</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="sobre" class="about">
+    <div>
+      <div class="section-title" style="text-align:left; margin-bottom:1.5rem">
+        <small>Nossa história</small>
+        <h2>Sobre a Pente Fino</h2>
+      </div>
+      <p>Somos uma barbearia que acredita que detalhes fazem toda a diferença. Cada corte é feito com atenção, técnica e escuta, porque entendemos que cada cliente tem um estilo próprio.</p>
+      <p>Aqui você encontra um espaço tranquilo, atendimento sem pressa e profissionais que cuidam do seu visual do jeito que você pediu.</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><strong>+5</strong><span>Anos de experiência</span></div>
+      <div class="stat"><strong>+3 mil</strong><span>Clientes atendidos</span></div>
+      <div class="stat"><strong>100%</strong><span>Atendimento personalizado</span></div>
+      <div class="stat"><strong>4.9★</strong><span>Avaliação dos clientes</span></div>
+    </div>
+  </section>
+
+  <section id="horarios">
+    <div class="section-title">
+      <small>Quando estamos abertos</small>
+      <h2>Horários de Funcionamento</h2>
+    </div>
+    <div class="info-grid">
+      <div class="info-card">
+        <h3>Funcionamento</h3>
+        <ul>
+          <li><span>Segunda a Sexta</span><span>09h às 20h</span></li>
+          <li><span>Sábado</span><span>08h às 18h</span></li>
+          <li><span>Domingo</span><span>Fechado</span></li>
+        </ul>
+      </div>
+      <div class="info-card" id="contato">
+        <h3>Contato e Endereço</h3>
+        <p>📍 Rua Exemplo, 123 - Centro<br>Sua Cidade - UF</p>
+        <p>📞 (11) 99999-9999</p>
+        <p>✉️ contato@pentefino.com.br</p>
+        <p style="margin-top:1rem"><a class="btn btn-gold" href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Quero%20agendar%20um%20hor%C3%A1rio%20na%20Pente%20Fino." target="_blank" rel="noopener">Agendar pelo WhatsApp</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <h2>Pronto para o seu melhor visual?</h2>
+    <p>Garanta seu horário e saia da cadeira com o estilo que você merece.</p>
+    <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Quero%20agendar%20um%20hor%C3%A1rio%20na%20Pente%20Fino." target="_blank" rel="noopener" class="btn btn-gold">Quero agendar</a>
+  </section>
+
+  <footer>
+    <p><strong>Barbearia Pente Fino</strong> · © <span id="ano"></span> · Todos os direitos reservados</p>
+  </footer>
+
+  <a class="whatsapp-float" href="https://wa.me/5511999999999" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+
+  <script>
+    const menu = document.getElementById('menu');
+    const menuBtn = document.getElementById('menuBtn');
+    menuBtn.addEventListener('click', () => menu.classList.toggle('open'));
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.remove('open')));
+    document.getElementById('ano').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
